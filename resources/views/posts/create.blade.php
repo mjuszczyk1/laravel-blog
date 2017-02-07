@@ -7,12 +7,12 @@
 		<form method="POST" action="/posts">
 			{{csrf_field()}}
 			<div class="form-group">
-				<label for="postTitle">Title:</label>
-			    <input type="text" class="form-control" id="postTitle" name="postTitle">
+				<label for="title">Title:</label>
+			    <input type="text" class="form-control" id="title" name="title" required>
 			</div>
 			<div class="form-group">
-				<label for="postBody">Body:</label>
-			    <textarea class="form-control" id="postBody" name="postBody"></textarea>
+				<label for="body">Body:</label>
+			    <textarea class="form-control" id="body" name="body" required></textarea>
 			</div>
 			<div class="form-group">
 				<button type="submit" class="btn">Submit</button>

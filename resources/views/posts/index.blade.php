@@ -3,6 +3,10 @@
 @section('content')
     <div class="col-sm-8">
         @include('posts.header')
-        <h1>Hello world</h1>
+        <hr>
+        @foreach($posts as $post)
+            @include('posts.post')
+        @endforeach
+        
     </div>
 @endsection
