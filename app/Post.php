@@ -37,7 +37,7 @@ class Post extends Model
      */
     public function addComment($body)
     {
-        $this->comments()->create(compact('body'));
+        $this->comments()->create(['body' => $body, 'user_id' => auth()->user()->id]);
         // This automatically sets comment ID because of the relationship
         // we set up.
     }

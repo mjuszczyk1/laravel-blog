@@ -15,6 +15,8 @@ class CommentsController extends Controller
      */
     public function store(Post $post)
     {
+        // To get user id:
+        // auth()->user()->id;
         $this->validate(request(), [
             'body' => 'required|min:4'
         ]);

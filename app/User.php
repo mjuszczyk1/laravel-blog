@@ -33,10 +33,20 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     public function publish(Post $post)
     {
         $this->posts()->save($post);
         // Because we set the relationship, this will
         // automatically grab the user ID
+    }
+
+    public function addComment(Comment $comment)
+    {
+        $this->comments()->save($comment);
     }
 }
