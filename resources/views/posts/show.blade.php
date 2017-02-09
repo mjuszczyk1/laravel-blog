@@ -4,7 +4,11 @@
     <div class="col-sm-8">
         <div class="post-info">
             <h1 class="font-weight-bold d-inline-block">{{$post->title}}</h1>
-            @include ('partials.errors')
+            @if(Session::has('flash_message'))
+                <div class="alert alert-danger">
+                    {{Session::get('flash_message')}}
+                </div>
+            @endif
             @if(!empty(Auth::user()->name) && $post->user->name == Auth::user()->name)
                 <div class="post-controls d-inline-block pull-right mt-1">
                     <form method="GET" action="/posts/{{$post->id}}/edit" class="d-inline">

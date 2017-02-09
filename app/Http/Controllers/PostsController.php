@@ -63,10 +63,11 @@ class PostsController extends Controller
 
     public function destroyConfirm(Post $post)
     {
-        if (auth()->user()->id == $post->user_id) {
+        if (auth()->user()->ownPost($post)) {
             return view('posts.destroyConfirm', compact('post'));
         }
-        return redirect()->back()->withErrors(['This is not your post!']);
+        \Session::flash('flash_message', 'This is not your post!');
+        return redirect()->back();
     }
 
     public function destroy(Post $post)
@@ -74,24 +75,33 @@ class PostsController extends Controller
         if($post->delete()){
             return redirect('/');
         } else {
-            return redirect()->back()->withErrors(['Delete Failed']);
+            \Session::flash('flash_message', 'Delete failed');
+            return redirect()->back();
         }
     }
 
     public function edit(Post $post)
     {
-        return view('posts.edit', compact('post'));
+        if (auth()->user()->ownPost($post)){
+            return view('posts.edit', compact('post'));
+        }
+        \Session::flash('flash_message', 'This is not your post!');
+        return redirect()->back();
     }
 
     public function update(Post $post)
     {
-        $this->validate(request(), [
-            'title' => 'required',
-            'body' => 'required'
-        ]);
+        if (auth()->user()->ownPost($post)){
+            $this->validate(request(), [
+                'title' => 'required',
+                'body' => 'required'
+            ]);
 
-        $post->fill(request()->all())->save();
+            $post->fill(request()->all())->save();
 
-        return view('posts.show', compact('post'));
+            return view('posts.show', compact('post'));
+        }
+        \Session::flash('flash_message', 'This is not your post!');
+        return redirect()->back();
     }
 }

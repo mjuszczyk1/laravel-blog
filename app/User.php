@@ -49,4 +49,12 @@ class User extends Authenticatable
     {
         $this->comments()->save($comment);
     }
+
+    public function ownPost(Post $post)
+    {
+        if (auth()->user()->id == $post->user_id) {
+            return true;
+        }
+        return false;
+    }
 }
