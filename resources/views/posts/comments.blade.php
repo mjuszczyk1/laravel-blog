@@ -9,10 +9,16 @@
                     @if(!empty(Auth::user()->name) && $comment->user->id == Auth::user()->id)
                         <div class="comments-actions">
                             <a href="/comments/{{ $comment->id }}/edit" class="comments-edit">
-                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                                <span class="fa-stack">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-pencil fa-stack-1x" aria-hidden="true"></i>
+                                </span>
                             </a>
                             <a href="/comments/{{ $comment->id}}/delete" class="comments-delete">
-                                <i class="fa fa-close" aria-hidden="true"></i>
+                                <span class="fa-stack">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-close fa-stack-1x" aria-hidden="true"></i>
+                                </span>
                             </a>
                         </div>
                     @endif

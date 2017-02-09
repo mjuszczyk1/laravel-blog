@@ -10218,6 +10218,40 @@ body {
   padding: 0.75rem 1.25rem;
 }
 
+.post-comments .comments-list .comments-comment .comments-actions .comments-edit .fa-stack-1x {
+  color: #f0ad4e;
+}
+
+.post-comments .comments-list .comments-comment .comments-actions .comments-edit:hover .fa-stack-2x {
+  color: #f0ad4e;
+}
+
+.post-comments .comments-list .comments-comment .comments-actions .comments-edit:hover .fa-stack-1x {
+  color: #fff;
+}
+
+.post-comments .comments-list .comments-comment .comments-actions .comments-delete .fa-stack-1x {
+  color: #d9534f;
+}
+
+.post-comments .comments-list .comments-comment .comments-actions .comments-delete:hover .fa-stack-1x {
+  color: #fff;
+}
+
+.post-comments .comments-list .comments-comment .comments-actions .comments-delete:hover .fa-stack-2x {
+  color: #d9534f;
+}
+
+.post-comments .comments-list .comments-comment .comments-actions .comments-delete .fa-stack-2x,
+.post-comments .comments-list .comments-comment .comments-actions .comments-edit .fa-stack-2x {
+  color: #fff;
+}
+
+.post-comments .comments-list .comments-comment .comments-actions .comments-delete:hover,
+.post-comments .comments-list .comments-comment .comments-actions .comments-edit:hover {
+  text-decoration: none;
+}
+
 .post-comments .comments-list .comments-comment:hover .comments-actions {
   display: inline-block;
 }
