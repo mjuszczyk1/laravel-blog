@@ -5,11 +5,16 @@
         </button>
         <a class="navbar-brand" href="/">Home</a>
         <div class="collapse navbar-collapse" id="main-nav">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/posts/create">Create Post</a>
-                </li>
-            </ul>
+            @if (!Auth::guest())
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/posts/{{Auth::user()->name_slug}}">My Posts</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="/posts/create">Create Post</a>
+                    </li>
+                </ul>
+            @endif
             <ul class="navbar-nav float-lg-right">
                 <!-- Authentication Links -->
                 @if (Auth::guest())
