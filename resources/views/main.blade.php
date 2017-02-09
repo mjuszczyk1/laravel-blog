@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>Blog Project</title>
 
         <!-- Fonts -->
@@ -16,12 +16,7 @@
           src="https://code.jquery.com/jquery-3.1.1.min.js"
           integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
           crossorigin="anonymous"></script>
-        <!-- Styles -->
-        <style>
-            html, body {
-                font-family: 'Raleway', sans-serif;
-            }
-        </style>
+        
     </head>
     <body>
         @include('partials.navbar')

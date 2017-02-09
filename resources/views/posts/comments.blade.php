@@ -1,4 +1,4 @@
-<div class="comments">
+<div class="post-comments">
     @if (count($post->comments))
         <h2>Comments</h2>
         <div class="list-group comments-list">

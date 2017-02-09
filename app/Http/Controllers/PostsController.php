@@ -61,4 +61,37 @@ class PostsController extends Controller
         return redirect('/');
     }
 
+    public function destroyConfirm(Post $post)
+    {
+        if (auth()->user()->id == $post->user_id) {
+            return view('posts.destroyConfirm', compact('post'));
+        }
+        return redirect()->back()->withErrors(['This is not your post!']);
+    }
+
+    public function destroy(Post $post)
+    {
+        if($post->delete()){
+            return redirect('/');
+        } else {
+            return redirect()->back()->withErrors(['Delete Failed']);
+        }
+    }
+
+    public function edit(Post $post)
+    {
+        return view('posts.edit', compact('post'));
+    }
+
+    public function update(Post $post)
+    {
+        $this->validate(request(), [
+            'title' => 'required',
+            'body' => 'required'
+        ]);
+
+        $post->fill(request()->all())->save();
+
+        return view('posts.show', compact('post'));
+    }
 }

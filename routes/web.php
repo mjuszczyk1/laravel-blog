@@ -12,7 +12,15 @@ Route::get('/posts/{post}', 'PostsController@show');
 // POST /posts/{post}/comments, save comment to post:
 Route::post('/posts/{post}/comments', 'CommentsController@store');
 
-Route::get('/comments/{comment}/edit', 'CommentsController@edit');
+Route::get('/posts/{post}/delete', 'PostsController@destroyConfirm');
+Route::post('/posts/{post}/delete', 'PostsController@destroy');
+
+Route::get('/posts/{post}/edit', 'PostsController@edit');
+Route::post('/posts/{post}/edit', 'PostsController@update');
+
+// Route::get('/comments/{comment}/edit', 'CommentsController@edit');
+// ^
+// Was really hard to get working, so it's commented out.
 
 Auth::routes();
 // ^ 
