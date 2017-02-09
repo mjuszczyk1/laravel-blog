@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use App\Comment;
 use Carbon\Carbon;
 
 class PostsController extends Controller
@@ -63,8 +64,8 @@ class PostsController extends Controller
 
     public function destroyConfirm(Post $post)
     {
-        if (auth()->user()->ownPost($post)) {
-            return view('posts.destroyConfirm', compact('post'));
+        if (auth()->user()->owner($post)) {
+            return view('posts.destroyPostConfirm', compact('post'));
         }
         \Session::flash('flash_message', 'This is not your post!');
         return redirect()->back();
@@ -72,6 +73,7 @@ class PostsController extends Controller
 
     public function destroy(Post $post)
     {
+        Comment::where('post_id', $post->id)->delete();
         if($post->delete()){
             return redirect('/');
         } else {
@@ -82,8 +84,8 @@ class PostsController extends Controller
 
     public function edit(Post $post)
     {
-        if (auth()->user()->ownPost($post)){
-            return view('posts.edit', compact('post'));
+        if (auth()->user()->owner($post)){
+            return view('posts.editPost', compact('post'));
         }
         \Session::flash('flash_message', 'This is not your post!');
         return redirect()->back();
@@ -91,7 +93,7 @@ class PostsController extends Controller
 
     public function update(Post $post)
     {
-        if (auth()->user()->ownPost($post)){
+        if (auth()->user()->owner($post)){
             $this->validate(request(), [
                 'title' => 'required',
                 'body' => 'required'

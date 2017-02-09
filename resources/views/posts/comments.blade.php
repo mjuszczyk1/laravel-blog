@@ -6,11 +6,16 @@
                 <div class="list-group-item d-block border-bottom-0 comments-comment">
                     <p class="mb-0 font-weight-bold">{{ $comment->body }}</p>
                     <p class="mb-0 ml-4">comment by {{$comment->user->name}}, {{$comment->created_at->diffForHumans()}}</p>
-                    <div class="comments-actions">
-                        <a href="/comments/{{ $comment->id }}/edit" class="comments-edit">
-                            <i class="fa fa-pencil" aria-hidden="true"></i>
-                        </a>
-                    </div>
+                    @if(!empty(Auth::user()->name) && $comment->user->id == Auth::user()->id)
+                        <div class="comments-actions">
+                            <a href="/comments/{{ $comment->id }}/edit" class="comments-edit">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </a>
+                            <a href="/comments/{{ $comment->id}}/delete" class="comments-delete">
+                                <i class="fa fa-close" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    @endif
                 </div>
             @endforeach
         </div>

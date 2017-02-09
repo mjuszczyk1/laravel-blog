@@ -18,9 +18,11 @@ Route::post('/posts/{post}/delete', 'PostsController@destroy');
 Route::get('/posts/{post}/edit', 'PostsController@edit');
 Route::post('/posts/{post}/edit', 'PostsController@update');
 
-// Route::get('/comments/{comment}/edit', 'CommentsController@edit');
-// ^
-// Was really hard to get working, so it's commented out.
+Route::get('/comments/{comment}/edit', 'CommentsController@edit');
+Route::post('/comments/{comment}/edit', 'CommentsController@update');
+
+Route::get('/comments/{comment}/delete', 'CommentsController@destroyConfirm');
+Route::post('/comments/{comment}/delete', 'CommentsController@destroy');
 
 Auth::routes();
 // ^ 

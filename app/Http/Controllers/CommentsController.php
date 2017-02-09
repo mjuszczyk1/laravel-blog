@@ -26,19 +26,48 @@ class CommentsController extends Controller
 
     public function edit(Comment $comment)
     {
-        // this will probably need to be put in a different method name
-        // for sanity sake. This won't work though, because bcrypt always
-        // returns something different, so we can't send one, then compare
-        // that to a newly generated one.
-        if ($comment->user_id === auth()->user()->id) {
-            $test = bcrypt(auth()->user()->name);
-            return $test;
-            // dd(Hash::make(auth()->user()->name));
-            // Below works:
-            // $secret_string = 'lzidx7fg(*&3.kvj849&.kj34';
-            // return $secret_string;
+        if (auth()->user()->owner(null, $comment)) {
+            return view('posts.editComment', compact('comment'));
+        }
+        \Session::flash('flash_message', 'This is not your comment!');
+        return redirect()->back();
+    }
+
+    public function update(Comment $comment)
+    {
+        if (auth()->user()->owner(null, $comment)){
+            $this->validate(request(), [
+                'body' => 'required'
+            ]);
+            $comment->fill(request(['body']))->save();
         } else {
-            return redirect()->back();
+            \Session::flash('flash_message', 'This is not your comment!');
+        }
+        return redirect("/posts/$comment->post_id}");
+    }
+
+    public function destroyConfirm(Comment $comment)
+    {
+        if (auth()->user()->owner(null, $comment)){
+            return view('posts.destroyCommentConfirm', compact('comment'));
+        }
+        \Session::flash('flash_message', 'This is not your comment!');
+        return redirect("/posts/$comment->post_id");
+    }
+
+    public function destroy(Comment $comment)
+    {
+        if (auth()->user()->owner(null, $comment)){
+            $redirect = $comment->post_id;
+            if ($comment->delete()){
+                return redirect("/posts/$redirect");
+            } else {
+                \Session::flash('flash_message', 'Delete failed');
+                return redirect("/posts/$redirect");
+            }
+        } else {
+            \Session::flash('flash_message', 'This is not your comment!');
+            return redirect("/posts/$redirect");
         }
     }
 }

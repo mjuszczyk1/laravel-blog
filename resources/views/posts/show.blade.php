@@ -9,7 +9,7 @@
                     {{Session::get('flash_message')}}
                 </div>
             @endif
-            @if(!empty(Auth::user()->name) && $post->user->name == Auth::user()->name)
+            @if(!empty(Auth::user()->id) && $post->user->id == Auth::user()->id)
                 <div class="post-controls d-inline-block pull-right mt-1">
                     <form method="GET" action="/posts/{{$post->id}}/edit" class="d-inline">
                         <button type="submit" class="btn btn-warning">Edit</button>

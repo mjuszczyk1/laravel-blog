@@ -5,7 +5,6 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-
 class User extends Authenticatable
 {
     use Notifiable;
@@ -50,11 +49,13 @@ class User extends Authenticatable
         $this->comments()->save($comment);
     }
 
-    public function ownPost(Post $post)
+    public function owner(Post $post=null, Comment $comment=null)
     {
-        if (auth()->user()->id == $post->user_id) {
+        if ($comment && auth()->user()->id == $comment->user_id){
+            return true;
+        } elseif ($post && auth()->user()->id == $post->user_id) {
             return true;
         }
-        return false;
+        return false; 
     }
 }
