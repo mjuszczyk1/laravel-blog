@@ -5,28 +5,26 @@
         </button>
         <a class="navbar-brand" href="/">Home</a>
         <div class="collapse navbar-collapse" id="main-nav">
-            @if (!Auth::guest())
+            @if (Auth::guest())
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/posts/{{Auth::user()->name_slug}}">My Posts</a>
-                    </li>
-                    <li class="nav-item ">
-                        <a class="nav-link" href="/posts/create">Create Post</a>
-                    </li>
-                </ul>
-            @endif
-            <ul class="navbar-nav float-lg-right">
-                <!-- Authentication Links -->
-                @if (Auth::guest())
                     <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">Register</a></li>
-                @else
+                </ul>
+            @else
+                <ul class="navbar-nav ml-auto">
+                    <!-- Authentication Links -->
                     <li class="nav-item dropdown">
                         <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" role="button" aria-expanded="false">
                             {{ Auth::user()->name }} <span class="caret"></span>
                         </a>
 
                         <ul class="dropdown-menu" role="menu">
+                            <li class="dropdown-item">
+                                <a href="/authors/{{Auth::user()->name_slug}}">My Posts</a>
+                            </li>
+                            <li class="dropdown-item ">
+                                <a href="/posts/create">Create Post</a>
+                            </li>
                             <li class="dropdown-item">
                                 <a href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
@@ -40,8 +38,8 @@
                             </li>
                         </ul>
                     </li>
-                @endif
-            </ul>
+                </ul>
+            @endif
         </div>
     </div>
 </nav>

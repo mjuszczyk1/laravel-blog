@@ -95,7 +95,7 @@ class PostsController extends Controller
     {
         if (auth()->user()->owner($post)){
             $this->validate(request(), [
-                'title' => 'required',
+                'title' => 'bail|required|unique:posts,title|max:255',
                 'body' => 'required'
             ]);
 

@@ -12,17 +12,28 @@ Route::get('/posts/{post}', 'PostsController@show');
 // POST /posts/{post}/comments, save comment to post:
 Route::post('/posts/{post}/comments', 'CommentsController@store');
 
+// Delete post - in two steps: get a confirmation page, then
+// it does POST request to route to delete. I was going to 
+// Make this AJAX buuuut, this kind of just makes sure you
+// don't accidentally delete er something.
 Route::get('/posts/{post}/delete', 'PostsController@destroyConfirm');
 Route::post('/posts/{post}/delete', 'PostsController@destroy');
 
+// Edit post - in two steps
 Route::get('/posts/{post}/edit', 'PostsController@edit');
 Route::post('/posts/{post}/edit', 'PostsController@update');
 
+// Edit comment - 2 steps.
 Route::get('/comments/{comment}/edit', 'CommentsController@edit');
 Route::post('/comments/{comment}/edit', 'CommentsController@update');
 
+// Delete Comment - 2 steps... for now. This one would be good 
+// do some AJAX for this.
 Route::get('/comments/{comment}/delete', 'CommentsController@destroyConfirm');
 Route::post('/comments/{comment}/delete', 'CommentsController@destroy');
+
+// Get posts for specific author:
+Route::get('/authors/{name}', 'AuthorsController@show')->where('name', '[a-z\-]+');
 
 Auth::routes();
 // ^ 
