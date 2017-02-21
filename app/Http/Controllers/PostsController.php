@@ -100,7 +100,7 @@ class PostsController extends Controller
 
             $post->fill(request()->all())->save();
 
-            return view('posts.show', compact('post'));
+            return redirect("/posts/{$post->id}");
         }
         \Session::flash('flash_message', 'This is not your post!');
         return redirect()->back();

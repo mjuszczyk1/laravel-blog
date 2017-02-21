@@ -43,7 +43,7 @@ class CommentsController extends Controller
         } else {
             \Session::flash('flash_message', 'This is not your comment!');
         }
-        return redirect("/posts/$comment->post_id}");
+        return redirect("/posts/{$comment->post_id}");
     }
 
     public function destroyConfirm(Comment $comment)
