@@ -23,7 +23,7 @@
                 <h2>{{$post->subtitle}}</h2>
             @endif
             <aside class="post-byline">
-                <p>By {{$post->user->name}}, {{$post->created_at->format('F j, Y \a\t g:ia')}}</p>
+                <p>By <a href="/authors/{{$post->user->name_slug}}">{{$post->user->name}}</a>, {{$post->created_at->format('F j, Y \a\t g:ia')}}</p>
             </aside>
         </div>
         <hr>

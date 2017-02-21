@@ -49,16 +49,4 @@
             @endif
         </div>
     </div>
-    <script>
-        $(function() {
-            $('a.comments-edit').on('click', function(e) {
-                // e.preventDefault();
-                // // console.log();
-                // const searchParams = {id: $(this).attr('href').split('/')[2]};
-                // $.get($(this).attr('href'), searchParams, function(data) {
-                //     console.log(data);
-                // });
-            });
-        });
-    </script>
 </div>
