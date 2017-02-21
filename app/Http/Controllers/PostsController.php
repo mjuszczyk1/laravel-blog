@@ -76,7 +76,7 @@ class PostsController extends Controller
 
     public function edit(Post $post)
     {
-        if (auth()->user()->owner($post)){
+        if (auth()->user()->owner(compact('post'))){
             return view('posts.editPost', compact('post'));
         }
         \Session::flash('flash_message', 'This is not your post!');
@@ -85,11 +85,18 @@ class PostsController extends Controller
 
     public function update(Post $post)
     {
-        if (auth()->user()->owner($post)){
-            $this->validate(request(), [
-                'title' => 'bail|required|unique:posts,title|max:255',
-                'body' => 'required'
-            ]);
+        if (auth()->user()->owner(compact('post'))){
+            if($post->title == $post->getOriginal('title')) {
+                $this->validate(request(), [
+                    'title' => 'bail|required|max:255',
+                    'body' => 'required'
+                ]);
+            } else {
+                $this->validate(request(), [
+                    'title' => 'bail|required|unique:posts,title|max:255',
+                    'body' => 'required'
+                ]);
+            }
 
             $post->fill(request()->all())->save();
 

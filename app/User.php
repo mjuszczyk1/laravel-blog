@@ -49,13 +49,26 @@ class User extends Authenticatable
         $this->comments()->save($comment);
     }
 
-    public function owner(Post $post=null, Comment $comment=null)
+    /**
+     * Check to see if user is owner of piece of content.
+     * Haven't tried, but seems like it should work if it was passed both a post and comment.
+     *
+     * @param $contentTypes     array
+     *                          key is the content type, value is the piece of content.
+     *                          or, ya know, you could use compact()    ;) <- winky face
+     */
+    public function owner($contentTypes)
     {
-        if ($comment && auth()->user()->id == $comment->user_id){
-            return true;
-        } elseif ($post && auth()->user()->id == $post->user_id) {
+        // dd($contentTypes);
+        if (!empty($contentTypes['post'])){
+            if(auth()->user()->id == $contentTypes['post']->attributes['user_id']){
+                return true;
+            }
+        }
+        if (!empty($contentTypes['comment']) && auth()->user()->id == $contentTypes['comment']->user_id) {
             return true;
         }
+        
         return false; 
     }
 }

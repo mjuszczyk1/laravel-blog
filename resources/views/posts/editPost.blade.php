@@ -5,6 +5,11 @@
         <h1>Edit post: <br>
             {{$post->title}}
         </h1>
+        @if(Session::has('flash_message'))
+            <div class="alert alert-danger">
+                {{Session::get('flash_message')}}
+            </div>
+        @endif
         @include ('partials.errors')
         <form method="POST" action="/posts/{{$post->id}}/edit">
             {{csrf_field()}}

@@ -26,7 +26,7 @@ class CommentsController extends Controller
 
     public function edit(Comment $comment)
     {
-        if (auth()->user()->owner(null, $comment)) {
+        if (auth()->user()->owner(compact('comment'))) {
             return view('posts.editComment', compact('comment'));
         }
         \Session::flash('flash_message', 'This is not your comment!');
@@ -35,9 +35,9 @@ class CommentsController extends Controller
 
     public function update(Comment $comment)
     {
-        if (auth()->user()->owner(null, $comment)){
+        if (auth()->user()->owner(compact('comment'))){
             $this->validate(request(), [
-                'body' => 'required'
+                'body' => 'required|min:4'
             ]);
             $comment->fill(request(['body']))->save();
         } else {
@@ -48,7 +48,7 @@ class CommentsController extends Controller
 
     public function destroyConfirm(Comment $comment)
     {
-        if (auth()->user()->owner(null, $comment)){
+        if (auth()->user()->owner(compact('comment'))){
             return view('posts.destroyCommentConfirm', compact('comment'));
         }
         \Session::flash('flash_message', 'This is not your comment!');
@@ -57,7 +57,7 @@ class CommentsController extends Controller
 
     public function destroy(Comment $comment)
     {
-        if (auth()->user()->owner(null, $comment)){
+        if (auth()->user()->owner(compact('comment'))){
             $redirect = $comment->post_id;
             if ($comment->delete()){
                 return redirect("/posts/$redirect");
